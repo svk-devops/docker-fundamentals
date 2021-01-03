@@ -1,0 +1,15 @@
+docker run --name mynginxdefault -p 80:80 -d nginx
+docker ps
+docker stop mynginxdefault
+
+docker build -t sergykozlov/mynginx_image1:v1 .
+docker run --name mynginx1 -p 80:80 -d sergykozlov/mynginx_image1:v1
+
+docker tag sergykozlov/mynginx_image1:v1 sergykozlov/mynginx_image1:v1-release
+docker push sergykozlov/mynginx_image1:v1-release
+
+#remove container
+docker rm $(docker ps -a -q)
+
+#remove images
+docker rmi --force $(docker images -q) 
